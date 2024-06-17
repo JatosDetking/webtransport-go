@@ -130,6 +130,13 @@ func (s *Server) ServeQUICConn(conn quic.Connection) error {
 	return s.H3.ServeQUICConn(conn)
 }
 
+func (s *Server) ServeListener(ln http3.QUICEarlyListener) error {
+	if err := s.initialize(); err != nil {
+		return err
+	}
+	return s.H3.ServeListener(ln)
+}
+
 func (s *Server) ListenAndServe() error {
 	if err := s.initialize(); err != nil {
 		return err
